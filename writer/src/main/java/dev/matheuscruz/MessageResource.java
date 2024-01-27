@@ -17,7 +17,7 @@ public class MessageResource {
 
     static final Logger LOGGER = LoggerFactory.getLogger(MessageResource.class);
     static final String VALUES_KEY_NAME = "values";
-    static final String STATE_STORE_NAME = "kvstore";
+    static final String STATE_STORE_NAME = "statestore";
     static final String TOPIC_NAME = "topic";
     SyncDaprClient dapr;
 
@@ -45,21 +45,6 @@ public class MessageResource {
 
         return Response.ok().build();
     }
-
-    @GET
-    public Values reader() {
-        State<Values> state = dapr.getState(STATE_STORE_NAME, VALUES_KEY_NAME, Values.class);
-        return state.getValue();
-    }
-
-    // @POST
-    // @Topic(name = "${dapr.topicName}", pubsubName = "pubsub")
-    // @Path("/topic")
-    // public Response subscriber(CloudEvent<String> event) {
-    // LOGGER.info("[application:writer] Receiving CloudEvent from Dapr {}",
-    // event.getData());
-    // return Response.ok().build();
-    // }
 
     public record Values(List<String> values) {
     }

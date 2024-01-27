@@ -20,7 +20,7 @@ public class MessageResource {
 
     static final Logger LOGGER = LoggerFactory.getLogger(MessageResource.class);
     static final String VALUES_KEY_NAME = "values";
-    static final String STATE_STORE_NAME = "kvstore";
+    static final String STATE_STORE_NAME = "statestore";
     SyncDaprClient dapr;
 
     public MessageResource(SyncDaprClient dapr) {
