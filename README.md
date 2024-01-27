@@ -41,18 +41,18 @@ git clone git@github.com:mcruzdev/dapr-devservices.git
 Subscriber:
 
 ```shell
-cd subscriber && quarkus dev
+cd subscriber && ./mvnw quarkus:dev
 ```
 
 Writer:
 ```shell
-cd writer && quarkus dev
+cd writer && ./mvnw quarkus:dev
 ```
 
 Reader:
 
 ```shell
-cd reader && quarkus dev
+cd reader && ./mvnw quarkus:dev
 ```
 
 8. Testing the endpoint
