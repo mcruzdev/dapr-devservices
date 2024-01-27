@@ -6,6 +6,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
+
 import java.util.Collections;
 
 import io.dapr.client.domain.State;
@@ -18,23 +20,24 @@ public class MessageResource {
 
     static final Logger LOGGER = LoggerFactory.getLogger(MessageResource.class);
     static final String VALUES_KEY_NAME = "values";
+    static final String STATE_STORE_NAME = "kvstore";
     SyncDaprClient dapr;
-    String stateStoreName;
 
-    public MessageResource(SyncDaprClient dapr,
-    @ConfigProperty(name = "dapr.stateStoreName") String stateStoreName) {
+    public MessageResource(SyncDaprClient dapr) {
         this.dapr = dapr;
-        this.stateStoreName = stateStoreName;
     }
 
     @GET
-    public List<String> reader() {
+    public Values reader() {
         try {
-            State<List> state = dapr.getState(this.stateStoreName, VALUES_KEY_NAME, List.class);
+            State<Values> state = dapr.getState(STATE_STORE_NAME, VALUES_KEY_NAME, Values.class);
             return state.getValue();
         } catch (Exception e) {
             LOGGER.error("Error while getting messages", e);
-            return Collections.emptyList();
+            return new Values(List.of());
         }
+    }
+
+    public record Values(List<String> values) {
     }
 }
