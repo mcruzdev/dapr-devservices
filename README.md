@@ -36,20 +36,19 @@ git clone git@github.com:mcruzdev/dapr-devservices.git
 
 6. Go to the `dapr-devservices` repository.
 
-
-By default, if there is no component inside (`src/main/resources/components`) configured, the Quarkus DevServices will add PubSub and State Store in memory.
-
-In this example we will use Redis for PubSub and StateStore:
-
-7. Execute Redis container:
+7. Create the `dapr` network before creating Redis container.
 
 ```shell
-docker run -d -p 6379:6379 redis --requirepass ""
+docker create network dapr  
 ```
 
-If you want to use a in-memory, you need to delete all files from `components` folder. We need to implement a way to get in-memory behavior through application.properties.
+8. Execute Redis container:
 
-8. Execute all services.
+```shell
+docker run --name redis --network dapr -d -p 6379:6379 redis --requirepass ""
+```
+
+1. Execute all services.
 
 Subscriber:
 
