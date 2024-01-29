@@ -39,7 +39,7 @@ git clone git@github.com:mcruzdev/dapr-devservices.git
 7. Create the `dapr` network before creating Redis container.
 
 ```shell
-docker create network dapr  
+docker network create dapr
 ```
 
 8. Execute Redis container:
